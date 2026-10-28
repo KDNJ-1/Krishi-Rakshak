@@ -1,0 +1,64 @@
+ó
+
+    xGâjÛ  ã            
+       óØ   • S r \" SSSSSSSSSS	S
+9
+rS rS rS
+ r\" SSSSSSSSS.S/\SSSS9\" SSSSSS ./ \S!S"S#S9\" S$S%S&S'S(S)SS*.S/\S!SSS9\" S+SSSSS,./ \S!SSS9S-.rS. rS/ rg0)1zjKrishi-Rakshak concept simulator (Python mirror of model.js).
+Illustrative assumptions, NOT measured data.éZ   éd   é#   é2   éA   é(   çÍÌÌÌÌÌì?é   é
+   )
+ÚDAYSÚAWCÚCRITÚTRIGGERÚWATCHÚHOLD_MINÚIRRÚRAIN_EFFÚROUTINE_INTERVALÚSKIP_IF_RAIN_YESTERDAYc                 ó&   • U S:  a  S$ U S:  a  S$ S$ )Né   çffffff@r   g      @gÍÌÌÌÌÌ@© ©Úds    Úw/tmp/claude-0/-home-claude/22ffdb02-117f-51cc-b1e9-df39dcd8ef5c/scratchpad/sim/krishi-rakshak-simulator/python/model.pyÚ
+_et_normalr      s   €   R£˜#ÐC°A¸³F¨SÐCÀÐCó    c                 ó&   • U S:  a  S$ U S:  a  S$ S$ )Nr   r   r   gÍÌÌÌÌÌ@gš™™™™™@r   r   s    r   Ú_et_droughtr      s   €  ! b£&˜3ÐD°Q¸³V¨cÐDÀÐDr   c                 ó6   • SU s=::  a  S::  a  S$   U S:  a  S$ S$ )Nr   é.   g      @r   r   gffffff@r   r   s    r   Ú_et_heatr"      s#   € ˜r Q}¨"›}˜ÐJ˜}¸!¸b»&°3ÐJÀcÐJr   z
+Normal season)r   ç333333Ó?)r   çš™™™™™É?)é   g333333ã?)é   çš™™™™™Ù?)r   r#   )é   çffffffæ?)r   ç      à?)é   é   é   é&   é7   éF   éR   é/   é   é   r0   )ÚtitleÚeventsÚfalse_alarmsÚetÚ
+routine_startÚbudgetÚs0zDrought spell, limited water)r&   r#   )r(   r'   )r(   r*   )é   é	   é:   éK   é   é   é<   zHeavy rain on the way)r(   r   )r%   r*   )r0   r$   )r&   éÿÿÿÿ)r   r)   )r@   é   é   é    r   éD   z	Heat wave)r	   r&   é>   éP   )ÚnormalÚdroughtÚstormÚheatc                 ób  • [         U    n[        S   nS/US-   -  nUS   R                  5        H  u  nu  pxXuU'   M     S/[        SUS-   5       Vs/ s H
+  ocS   " U5      PM     sn-   n	S/US-   -  n
+US   R                  5        H  u  nu  p‹US:¼  d  M  X±:  d  M  SX¦'   M     S/US-   -  nUS	    H  nSXÆ'   M	     [	        US
+   5      oÓS   n[        U
+/SSSSSS/US-   -  S9n[        SUS-   5       GH‹  nU
+nSnUS
+:X  a:  X¦   =(       d    XÆ   nU(       a  U[        S   :¼  a  OkU[        S   ::  a  US:”  a  SnOUXcS   :¬  =(       a    XcS   -
+  [        S   -  S:H  nUS:„  =(       a    XVS-
+     [        S   :¬  nU(       a  US:”  a	  U(       d  SnSnU(       a)  [        S   nUS-  oïS==   S-
+  ss'   [        S   US   U'   U
+[        S   XV   -  -   U-   n
+U
+[        S   :”  a   US==   U
+[        S   -
+  -
+  ss'   [        S   n
+U
+[        S   :¼  a  SOU
+[        S   -  nX–   U-  nUS==   X–   -
+  ss'   US==   U-
+  ss'   [
+        SU
+U-
+  5      n
+U
+[        S   :  a
+  US==   S-
+  ss'   US   R                  U
+5        GMŽ     SUS   -  US   -  US '   US   [        S   -  US!'   U$ s  snf )"Nr   g        é   r6   r8   Fé    Tr7   r;   r:   )ÚSÚdrainedÚetaÚetcÚstressÚirrigationsÚ
+irrigationÚwithr   r   r9   r   r   r   rV   rW   r   r   rR   r
+   g      ð?rT   rS   rU   rQ   r   Úyield_proxyÚ
+water_used)Ú	SCENARIOSÚPÚitemsÚrangeÚfloatÚdictÚmaxÚappend)ÚkeyÚreliabilityÚmodeÚscÚDÚrainr   ÚmmÚ_r8   ÚdetectedÚuÚfalse_alarmrQ   r:   ÚoutÚmorningÚirrigateÚsignalÚschedÚrainedÚaddÚksrS   s                           r   Úrunrv      só  € Ü	3‰€BœQ˜v™Y˜Øˆ5A˜‘E‰?€DØ˜‘l×(Ñ(Ö*‰
+ˆ‰7ˆB°b°«GÑ*Ø
+
+ˆ¤u¨Q°°A±¤Ó7¢ !T’(˜1–+¡Ñ7Ñ	7€BØˆw˜!˜a™%Ñ €HØ˜‘\×'Ñ'Ö)‰	ˆ‰6ˆAØ6a•o°T x£{ñ *à'˜Q ™UÑ#€KØ
+Ô
+ˆ°$ £Ñ
+Ü
+ˆb‰h‹€A X¡,˜Ü
+!˜c s°¸AÈ1ÐZ[ÐY\Ð`aÐdeÑ`eÑYfÑ
+g€CÜ
+1a˜!‘e_ˆØˆ XØ6‹>Ø‘[×2 K¡NˆFÞ˜'¤Q z¡]Ó2°DØœA˜i™LÓ(¨V°a«ZÀD¸øà˜OÑ,Ñ,×g°!¸Ñ6IÑ2IÌQÐOaÑMbÑ1bÐfgÑ1gˆEØ˜‘U×I˜t¨¡E™{¬aÐ0HÑ.IÑIˆFÞ˜ !›®F¸t°HØˆÞÜE‘(ˆC˜F a™K˜F¨]Ó);¸qÑ)@Ó);ÔYZÐ[`ÑYaÀ#ÀlÑBSÐTUÑBVØ
+”*‘
+ ¡Ñ'Ñ'¨#Ñ-ˆØŒq‰x‹<˜˜Y›¨1¬q°©x©<Ñ7›¼Q¸u¹X¸Øœ˜6™“N‰S¨¬A¨f©I©
+ˆØ‰eb‰jˆØˆE‹
+b‘eÑ‹
+˜S ›Z¨3Ñ.›ZÜQ˜‘WÓˆØŒq‰y‹=˜#˜h›-¨1Ñ,›-ØˆC‰‰˜×ñ) ð* ˜s 5™zÑ)¨C°©JÑ6€Cˆ
+ÑØ˜MÑ*¬Q¨u©XÑ5€CˆÑØ€Jùò? 8s   ÁJ,c           
+      ób   • [        U S   U S   [        U S   S5      U S   [        U S   S5      S9$ )NrV   rZ   rR   r@   rU   rY   )rV   Ú	waterUsedrR   Ú
+stressDaysÚ
+yieldProxy)r`   Úround)Úrs    r   Úsummaryr}   :   sE   € Ü˜A˜mÑ,¸¸,¹ÔQVÐWXÐYbÑWcÐefÓQgØ˜X™;´5¸¸=Ñ9IÈ1Ó3MñOð Or   N)	Ú__doc__r`   r\   r   r   r"   r[   rv   r}   r   r   r   Ú<module>r      s  ðñ0áˆbc ¨B°bÀ2È2ÐX[Ø°Bñ8€ò DÚ DÚ Jñ ˜/°hÀHÐRZÐ`hÐnvð  }Eð  KSñ  3TØ"$ ¨*ÀAÈbÐUWñYáÐ8ÀXÐRZÐ`hÐnvÑAwØ!#¨À1ÈQÐSUñWáÐ1¸hÈHÐZbÐhpÐv~ð  EMñ  ;NØ"$ ¨*ÀAÈbÐUWñYá˜+°(ÀÈhÐ\dÑ.eØ!#¨ÀÈ"ÐQSñUñ	
+€	ò#óJOr   
