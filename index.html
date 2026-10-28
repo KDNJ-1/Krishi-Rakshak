@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Krishi-Rakshak Simulator</title>
+<style>
+:root{--bg:#faf6ee;--card:#fff;--ink:#2b2118;--mut:#6b5d50;--line:#e4d9c6;--red:#c0392b;--grn:#2e7d32;--blu:#1f6fb2;--amb:#d98a00;--ter:#b5562b}
+@media (prefers-color-scheme:dark){:root{--bg:#1d1812;--card:#272019;--ink:#f3eadb;--mut:#b5a590;--line:#3b3226;--red:#ef7b6d;--grn:#7bc47f;--blu:#6fb4ee;--amb:#f0b34a;--ter:#e08a5e}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:22px;margin:4px 0}.sub{color:var(--mut);margin:0 0 10px}
+.banner{background:#fff4d6;color:#5a4300;border:1px solid #e9c46a;border-radius:8px;padding:8px 12px;font-size:13px;margin:10px 0}
+.ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
+.ctl label{font-size:13px;color:var(--mut)}select,button{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+button.p{background:var(--ter);color:#fff;border-color:var(--ter)}
+.blurb{font-size:14px;margin:0 0 8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.card h2{font-size:16px;margin:0 0 2px}.card .t{color:var(--mut);font-size:12px;margin-bottom:6px}
+.now{display:flex;gap:10px;align-items:center;margin:6px 0;min-height:44px}
+.sym{width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex:none}
+.msg{font-weight:600}.msg small{display:block;font-weight:400;color:var(--mut)}
+.m{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:6px}
+.m div{background:var(--bg);border-radius:8px;padding:6px;text-align:center}.m b{display:block;font-size:18px}.m span{font-size:11px;color:var(--mut)}
+.log{max-height:130px;overflow:auto;font-size:12px;margin-top:6px;border-top:1px solid var(--line);padding-top:4px}
+.log div{padding:1px 0}.hold{color:var(--grn)}.irrigate{color:var(--blu)}.dry{color:var(--red)}
+svg{width:100%;height:auto;display:block}
+.leg{font-size:12px;color:var(--mut);display:flex;gap:12px;flex-wrap:wrap;margin:6px 0}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.foot{font-size:12px;color:var(--mut);margin-top:14px}
+input[type=range]{accent-color:var(--ter)}
+</style></head><body><div class="wrap">
+<h1>Krishi-Rakshak: farmer without vs. with the station</h1>
+<p class="sub">Concept simulator. Same crop, same rain, same water. Only the decisions differ.</p>
+<div class="banner"><b>Illustrative model, not measured data.</b> Rainfall events, soil-water thresholds and the rain-signal reliability are assumptions to be validated in a pilot. Results show how the decision logic behaves, not field-proven savings.</div>
+<div class="ctl">
+ <label>Scenario <select id="sc"></select></label>
+ <label>Station rain-signal reliability <input type="range" id="rel" min="0" max="100" value="60"> <b id="relv">60%</b></label>
+ <label>Day <input type="range" id="day" min="1" max="90" value="90"> <b id="dayv">90</b></label>
+ <button class="p" id="play">Play season</button>
+</div>
+<p class="blurb" id="blurb"></p>
+<div class="grid" id="grid"></div>
+<div class="leg"><span><i style="background:var(--blu)"></i>Soil water (mm)</span><span><i style="background:var(--ter)"></i>Rain (mm)</span><span><i style="background:var(--grn)"></i>Irrigation</span><span><i style="background:var(--red)"></i>Stress zone (below 35 mm)</span></div>
+<p class="foot">Model: daily soil-water bucket, S(t+1) = S + 0.9×rain + irrigation − ET×stress factor, capped at 100 mm (excess drains). Yield proxy = actual ÷ potential evapotranspiration. "Without" = fixed 8-day routine, skips if it rained yesterday. "With" = irrigate only when station says square (≤50 mm); hold when a rain signal arrives and soil is not already dry. Station symbols: circle = fine, triangle = watch, square = irrigate now. Source and tests in this repository.</p>
+</div>
+<script src="model.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+Object.keys(KR.SCENARIOS).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=KR.SCENARIOS[k].title;$('sc').appendChild(o)});
+const W=520,H=230,L=36,R=8,T=10,B=24,D=KR.P.DAYS;
+const x=d=>L+(d-1)/(D-1)*(W-L-R), y=v=>T+(1-v/110)*(H-T-B);
+function symbolSVG(s){const c={circle:'var(--grn)',triangle:'var(--amb)',square:'var(--red)'}[s]||'var(--mut)';
+ if(s==='circle')return `<svg viewBox="0 0 24 24" width="26"><circle cx="12" cy="12" r="9" fill="${c}"/></svg>`;
+ if(s==='triangle')return `<svg viewBox="0 0 24 24" width="26"><path d="M12 3 22 21H2z" fill="${c}"/></svg>`;
+ if(s==='square')return `<svg viewBox="0 0 24 24" width="26"><rect x="3" y="3" width="18" height="18" fill="${c}"/></svg>`;
+ return `<svg viewBox="0 0 24 24" width="26"><circle cx="12" cy="12" r="8" fill="none" stroke="var(--mut)" stroke-dasharray="3 3"/></svg>`}
+function chart(r,upto){
+ let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Soil water over the season">`;
+ s+=`<rect x="${L}" y="${y(KR.P.CRIT)}" width="${W-L-R}" height="${y(0)-y(KR.P.CRIT)}" fill="var(--red)" opacity=".12"/>`;
+ [0,25,50,75,100].forEach(v=>s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-5}" y="${y(v)+4}" font-size="10" text-anchor="end" fill="var(--mut)">${v}</text>`);
+ [1,30,60,90].forEach(d=>s+=`<text x="${x(d)}" y="${H-8}" font-size="10" text-anchor="${d===90?"end":d===1?"start":"middle"}" fill="var(--mut)">day ${d}</text>`);
+ s+=`<line x1="${L}" x2="${W-R}" y1="${y(KR.P.TRIGGER)}" y2="${y(KR.P.TRIGGER)}" stroke="var(--amb)" stroke-dasharray="4 3"/>`;
+ for(let d=1;d<=upto;d++){ if(r.rain[d]>0){const h=r.rain[d]/110*(H-T-B)*1.0;s+=`<rect x="${x(d)-2}" y="${y(0)-h}" width="4" height="${h}" fill="var(--ter)" opacity=".55"/>`}
+   if(r.irrigation[d]>0){s+=`<path d="M${x(d)} ${y(105)} l-5 -9 h10z" fill="var(--grn)"/><line x1="${x(d)}" x2="${x(d)}" y1="${y(105)}" y2="${y(0)}" stroke="var(--grn)" opacity=".35"/>`}}
+ let p='';for(let d=1;d<=upto;d++)p+=(d===1?'M':'L')+x(d).toFixed(1)+' '+y(r.S[d]).toFixed(1);
+ s+=`<path d="${p}" fill="none" stroke="var(--blu)" stroke-width="2.4"/>`;
+ s+=`<line x1="${x(upto)}" x2="${x(upto)}" y1="${T}" y2="${y(0)}" stroke="var(--ink)" opacity=".3"/></svg>`;return s}
+function msgFor(r,mode,d){
+ if(mode==='without'){return ['', 'No station', 'Farmer follows a fixed routine and guesses the weather.']}
+ const sc=KR.SCENARIOS[$('sc').value];
+ const morning=r.morningS[d]; const sym=r.symbol[d]||'circle';
+ const ev=r.log.filter(l=>l[0]===d)[0];
+ return [sym, ev?ev[2]:(sym==='circle'?'All fine today':sym==='triangle'?'Soil getting dry: watch':'Dry'), 'Soil water '+Math.round(morning)+' mm at sunrise']}
+function render(){
+ const key=$('sc').value, rel=$('rel').value/100, d=+$('day').value;
+ $('relv').textContent=$('rel').value+'%'; $('dayv').textContent=d; $('blurb').textContent=KR.SCENARIOS[key].blurb;
+ const c=KR.compare(key,rel); const g=$('grid'); g.innerHTML='';
+ [['without','Farmer WITHOUT Krishi-Rakshak','Routine irrigation, no local data'],['with','Farmer WITH Krishi-Rakshak','Symbols and voice from the soil probes + rain signal']].forEach(([m,t,sub])=>{
+  const r=c[m]; const [sym,txt,det]=msgFor(r,m,d);
+  // running metrics to day d
+  let irr=0,st=0,drain=0;for(let i=1;i<=d;i++){if(r.irrigation[i]>0)irr++;if(r.S[i]<KR.P.CRIT)st++}
+  const full=KR.summary(r);
+  const div=document.createElement('div');div.className='card';
+  div.innerHTML=`<h2>${t}</h2><div class="t">${sub}</div>${chart(r,d)}
+  <div class="now"><div class="sym">${m==='with'?symbolSVG(sym):'<span style="font-size:20px">?</span>'}</div><div class="msg">${txt}<small>${det}</small></div></div>
+  <div class="m"><div><b>${irr}</b><span>irrigations</span></div><div><b>${irr*KR.P.IRR}</b><span>mm water used</span></div><div><b>${st}</b><span>days stressed</span></div><div><b>${d===D?full.yieldProxy.toFixed(0)+'%':'…'}</b><span>yield proxy</span></div></div>
+  <div class="log">${r.log.filter(l=>l[0]<=d).slice(-30).reverse().map(l=>`<div class="${l[1]}">Day ${l[0]}: ${l[2]}</div>`).join('')||'<div>No events yet</div>'}</div>`;
+  g.appendChild(div)})}
+['sc','rel','day'].forEach(id=>$(id).addEventListener('input',render));
+let timer=null;$('play').onclick=()=>{ if(timer){clearInterval(timer);timer=null;$('play').textContent='Play season';return}
+ $('day').value=1;render();$('play').textContent='Pause';timer=setInterval(()=>{let d=+$('day').value+1;if(d>D){clearInterval(timer);timer=null;$('play').textContent='Play season';return}$('day').value=d;render()},120)};
+$('sc').value=(new URLSearchParams(location.search).get('s'))||'storm';render();
+</script></body></html>
